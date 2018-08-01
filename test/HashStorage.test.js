@@ -8,8 +8,8 @@ const web3 = new Web3(provider);
 const { interface, bytecode } = require('../compile');
 
 let accounts;
-let inbox; 
-const INITIAL_STRING = 'Hi there!';
+let hashStorage; 
+const INITIAL_HASH = 'abc123';
 
 beforeEach(async () => {
   // Get a list of all accounts
@@ -18,27 +18,27 @@ beforeEach(async () => {
   // Use one of those accounts to deploy contract
 
   // JSON.parse(interface) = JS object that represents the ABI
-  inbox = await new web3.eth.Contract(JSON.parse(interface))
-    .deploy({ data: bytecode, arguments: [INITIAL_STRING] })
+  hashStorage = await new web3.eth.Contract(JSON.parse(interface))
+    .deploy({ data: bytecode, arguments: [INITIAL_HASH] })
     .send({ from: accounts[0], gas: '1000000' });
 
-  inbox.setProvider(provider);
+  hashStorage.setProvider(provider);
 });
 
-describe('Inbox', () => {
+describe('HashStorage', () => {
   it('Deploys a contract', () => {
     // Fails if argument is null or undefined
-    assert.ok(inbox.options.address);
+    assert.ok(hashStorage.options.address);
   });
 
-  it('Initializes message with constructor argument', async () => {
-    const message = await inbox.methods.message().call();
-    assert.equal(message, INITIAL_STRING);
+  it('Initializes hash with constructor argument', async () => {
+    const message = await hashStorage.methods.hash().call();
+    assert.equal(message, INITIAL_HASH);
   });
 
-  it('Sets a new message with the setMessage() method', async () => {
-    await inbox.methods.setMessage('testing').send({ from: accounts[0] });
-    const message = await inbox.methods.message().call();
-    assert.equal(message, 'testing');
+  it('Sets a new hash with the setHash() method', async () => {
+    await hashStorage.methods.setHash('testing').send({ from: accounts[0] });
+    const hash = await hashStorage.methods.hash().call();
+    assert.equal(hash, 'testing');
   });
 });
