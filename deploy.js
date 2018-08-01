@@ -9,8 +9,6 @@ const provider = new HDWalletProvider(mnemonic, TEST_ENDPOINT);
 
 const web3 = new Web3(provider);
 
-console.log(provider);
-
 const deploy = async () => {
   const accounts = await web3.eth.getAccounts();
   console.log('account: ', accounts[0]);
