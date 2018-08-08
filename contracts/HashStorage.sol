@@ -21,7 +21,7 @@ contract HashStorage {
     
     // Only the contract manager can inoke restricted methods
     modifier restricted() {
-        require(msg.sender == manager);
+        require(msg.sender == manager, "Only the manager can invoke");
         _;
     }
     
