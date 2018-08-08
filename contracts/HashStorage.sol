@@ -14,7 +14,7 @@ contract HashStorage {
     mapping(string => uint) private videoMap;
     
     // The index where the video should be stored in the videos array
-    uint private index;
+    uint public index;
     
     // The map contains the index where the video is stored in the array
     Video[] public videos;
