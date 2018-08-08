@@ -71,4 +71,4 @@ contract HashStorage {
         string memory user = video.user;
         return user;
     }
- }
+}
